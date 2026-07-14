@@ -74,22 +74,6 @@ If the external bot already posts in an existing group, skip this.
 3. Name the group (e.g. `Job Alerts`)
 4. Open the group → tap the group name → **Add Members** → search for your bot's `@username` and add it
 
-#### Get the Chat ID
-
-You'll need the group's chat ID to register the webhook:
-
-1. Add your bot to the group
-2. Send any message in the group (e.g. `hello`)
-3. Open this URL in your browser (replace `BOT_TOKEN`):
-   ```
-   https://api.telegram.org/bot<BOT_TOKEN>/getUpdates
-   ```
-4. Look for `"chat":{"id":-100XXXXXXXXXX}` — that negative number is your **chat ID**
-
-> **Tip:** Group chat IDs always start with `-100`. Personal chats are positive numbers.
-
----
-
 ### Step 3: Deploy This Relay
 
 Click the deploy button above, or deploy manually:
