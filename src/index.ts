@@ -1,14 +1,13 @@
 /**
  * Telegram → Cloudflare Workers Relay
  *
- * Receives Telegram bot updates via webhook and forwards them to a
- * HookForms-compatible endpoint for delivery to Discord, email, Slack, etc.
+ * Receives Telegram bot updates via webhook, normalizes the payload into
+ * clean flat fields, and forwards to HookForms via a Cloudflare Service Binding.
  */
 
 export interface Env {
   BOT_TOKEN: string;
-  HOOKFORMS_URL: string;
-  HOOKFORMS_API_KEY: string;
+  HOOKFORMS: Fetcher;
 }
 
 export default {
@@ -47,14 +46,15 @@ export default {
         date: message.date,
       };
 
-      const resp = await fetch(env.HOOKFORMS_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-API-Key": env.HOOKFORMS_API_KEY,
+      // Forward via service binding (direct in-memory call, no network)
+      const resp = await env.HOOKFORMS.fetch(
+        "https://hookforms-cf.borderlesstechnologysolutions.workers.dev/hooks/telegram-alerts",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
         },
-        body: JSON.stringify(payload),
-      });
+      );
 
       console.log(`Forwarded to hookforms: ${resp.status}`);
 

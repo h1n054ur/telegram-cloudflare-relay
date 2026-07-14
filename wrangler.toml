@@ -5,8 +5,11 @@ compatibility_date = "2026-07-14"
 # ──────────────────────────────────────────────────────────────────────────────
 # Secrets (set via `wrangler secret put <NAME>` after first deploy):
 #
-#   BOT_TOKEN         — Your Telegram bot token from @BotFather
-#   HOOKFORMS_URL     — Your HookForms webhook URL, e.g.
-#                       https://your-worker.workers.dev/hooks/your-slug
-#   HOOKFORMS_API_KEY — Your HookForms admin API key
+#   BOT_TOKEN — Your Telegram bot token from @BotFather
 # ──────────────────────────────────────────────────────────────────────────────
+
+# Service binding to your HookForms Worker (same Cloudflare account)
+# Replace "hookforms-cf" with your actual HookForms Worker name
+[[services]]
+binding = "HOOKFORMS"
+service = "hookforms-cf"
