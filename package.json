@@ -1,0 +1,14 @@
+{
+  "name": "telegram-cloudflare-relay",
+  "version": "1.0.0",
+  "description": "Telegram to Cloudflare Workers relay — forward Telegram bot messages to any webhook (Discord, email, Slack, etc.) via HookForms",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0"
+  }
+}
